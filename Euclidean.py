@@ -1,7 +1,22 @@
-def euclidean_gcd(a, b):
+def euclidean_algorithm(a, b):
     while b != 0:
         a, b = b, a % b
     return a
-a = int(input("Enter the first number: "))
-b = int(input("Enter the second number: "))
-print("The GCD of", a, "and", b, "is:", euclidean_gcd(a, b))
+
+def extended_euclidean_algorithm(a, b):
+    if b == 0:
+        return a, 1, 0
+    gcd, x1, y1 = extended_euclidean_algorithm(b, a % b)
+    x = y1
+    y = x1 - (a // b) * y1
+    return gcd, x, y
+
+a = 56
+b = 98
+
+gcd = euclidean_algorithm(a, b)
+print(f"GCD of {a} and {b} using Euclidean Algorithm is {gcd}")
+
+gcd, x, y = extended_euclidean_algorithm(a, b)
+print(f"GCD of {a} and {b} using Extended Euclidean Algorithm is {gcd}")
+print(f"Coefficients: x = {x}, y = {y}")

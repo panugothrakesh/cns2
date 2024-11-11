@@ -1,6 +1,7 @@
 import hashlib
-text = input("Enter text to calculate MD5 hash: ")
-md5 = hashlib.md5()
-md5.update(text.encode())
-hash_hex = md5.hexdigest()
-print("MD5 Hash:", hash_hex)
+
+text = "Hello, this is a sample text for MD5 digest."
+md5_hash = hashlib.md5()
+md5_hash.update(text.encode('utf-8'))
+digest = md5_hash.hexdigest()
+print(f"MD5 Digest: {digest}")

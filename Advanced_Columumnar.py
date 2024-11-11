@@ -1,17 +1,19 @@
-def simple_columnar_transposition_encrypt(plaintext, key):
+import math
+
+def advanced_columnar_transposition_encrypt(plaintext, key):
     num_cols = len(key)
-    num_rows = len(plaintext) // num_cols + (1 if len(plaintext) % num_cols != 0 else 0)
+    num_rows = math.ceil(len(plaintext) / num_cols)
     grid = [''] * num_rows
+    plaintext = plaintext.ljust(num_rows * num_cols, 'X')
     index = 0
     for col in sorted(range(num_cols), key=lambda x: key[x]):
         for row in range(num_rows):
-            if index < len(plaintext):
-                grid[row] += plaintext[index]
-                index += 1
+            grid[row] += plaintext[index]
+            index += 1
     ciphertext = ''.join(grid)
     return ciphertext
 
-def simple_columnar_transposition_decrypt(ciphertext, key):
+def advanced_columnar_transposition_decrypt(ciphertext, key):
     num_cols = len(key)
     num_rows = len(ciphertext) // num_cols
     grid = [''] * num_rows
@@ -22,11 +24,11 @@ def simple_columnar_transposition_decrypt(ciphertext, key):
             grid[row] += ciphertext[index]
             index += 1
     plaintext = ''.join(grid)
-    return plaintext
+    return plaintext.rstrip('X')
 
 plaintext = "HELLOHOWAREYO"
-key = "3142"
-ciphertext = simple_columnar_transposition_encrypt(plaintext, key)
+key = "4321"
+ciphertext = advanced_columnar_transposition_encrypt(plaintext, key)
 print(f"Ciphertext: {ciphertext}")
-decrypted_text = simple_columnar_transposition_decrypt(ciphertext, key)
+decrypted_text = advanced_columnar_transposition_decrypt(ciphertext, key)
 print(f"Decrypted text: {decrypted_text}")
